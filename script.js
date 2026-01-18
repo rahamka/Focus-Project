@@ -1,87 +1,29 @@
 const checkBoxList = document.querySelectorAll(".custom-checkbox");
-const inputField_1 = document.querySelector(".input-field-1");
-const inputField_2 = document.querySelector(".input-field-2");
-const inputField_3 = document.querySelector(".input-field-3");
+const inputFields = document.querySelectorAll(".goal-input");
 const errorLabel = document.querySelector(".error-label");
+const progressBar = document.querySelector(".progress-bar");
 const progressValue = document.querySelector(".progress-value");
-const resetBtn = document.querySelector(".resetBtn");
-const goalContainer = document.querySelectorAll(".goal-container");
 
-let goalCompletedCounter = 0;
+// ----- Data Saving Object ----- //
+const allGoals = {};
 
-checkBoxList.forEach((checkBox) => {
-  checkBox.addEventListener("click", (e) => {
-    let field1 = inputField_1.value.length;
-    let field2 = inputField_2.value.length;
-    let field3 = inputField_3.value.length;
-    if (field1 == 0 || field2 == 0 || field3 == 0) {
-      errorLabel.classList.remove("error-label-visibility");
-    } else if (field1 >= 1 && field2 >= 1 && field3 >= 1) {
-      errorLabel.classList.add("error-label-visibility");
-      e.target.classList.add("completed");
-      e.target.parentElement.classList.toggle("strike");
-      goalCompletedCounter++;
+checkBoxList.forEach((checkbox) => {
+  checkbox.addEventListener("click", (e) => {
+    const allGoalsAdded = [...inputFields].every(function (input) {
+      return input.value;
+    });
 
-      // Updating the Goal Completing
-      if (goalCompletedCounter == 0) {
-        progressValue.classList.add("progress-value-0");
-        progressValue.innerHTML = "0/3 Completed";
-      } else if (goalCompletedCounter == 1) {
-        progressValue.classList.add("progress-value-1");
-        progressValue.innerHTML = "1/3 Completed";
-      } else if (goalCompletedCounter == 2) {
-        progressValue.classList.add("progress-value-2");
-        progressValue.innerHTML = "2/3 Completed";
-      } else if (goalCompletedCounter == 3) {
-        progressValue.classList.add("progress-value-3");
-        progressValue.innerHTML = "3/3 Completed";
-        resetBtn.classList.remove("visibility");
-      }
+    if (allGoalsAdded) {
+      checkbox.parentElement.classList.toggle("completed");
+      progressValue.style.width = "33.33%";
+    } else {
+      progressBar.classList.add("show-error");
     }
   });
 });
 
-resetBtn.addEventListener("click", (e) => {
-  goalCompletedCounter = 0;
-  checkBoxList.forEach((checkBox) => {
-    checkBox.classList.remove("completed");
-    let allInputs = document.querySelectorAll("input");
-    allInputs.forEach((input) => {
-      input.value = "";
-    });
-    goalContainer.forEach((container) => {
-      container.classList.remove("strike");
-    });
-  });
-  progressValue.classList.add("progress-value-0");
-  progressValue.classList.remove("progress-value-1");
-  progressValue.classList.remove("progress-value-2");
-  progressValue.classList.remove("progress-value-3");
-  resetBtn.classList.add("visibility");
-
-  // ----- Resetting the Data of localStorage ----- //
-  localStorage.clear();
-});
-
-// ----- Getting Input Fields ----- //
-
-let allInputFields = document.querySelectorAll("input");
-allInputFields.forEach((input, i) => {
-  input.addEventListener("input", (e) => {
-    localStorage.setItem(`Goal-${i}`, e.target.value);
+inputFields.forEach((input) => {
+  input.addEventListener("focus", () => {
+    progressBar.classList.remove("show-error");
   });
 });
-
-window.onload = function () {
-  // ----- Getting Inputs Values ---- //
-  const goal_1 = localStorage.getItem("Goal-0");
-  inputField_1.value = goal_1;
-
-  const goal_2 = localStorage.getItem("Goal-1");
-  inputField_2.value = goal_2;
-
-  const goal_3 = localStorage.getItem("Goal-2");
-  inputField_3.value = goal_3;
-};
-
-//  Add the clear goal button.

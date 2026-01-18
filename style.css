@@ -1,23 +1,21 @@
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 body {
   background-color: rgba(72, 163, 0, 0.07);
-  font-family: "Poppins";
+  font-family: "Poppins", sans-serif;
+  margin: 0;
 }
 
 main {
-  margin: 0 16px 32px;
+  padding: 0 16px 32px;
 }
 
 .title {
-  font-size: 4rem;
+  font-size: 64px;
   color: #48a300;
   text-align: center;
-  margin: 2rem 1rem;
 }
 
 .title span {
@@ -30,23 +28,12 @@ main {
   margin-inline: auto;
   border-radius: 15px;
   padding: 32px 48px;
-  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.1);
 }
 
 .sun-icon {
   vertical-align: middle;
-  margin-left: 1rem;
-  animation: rotation 2s ease-in 0s infinite normal;
-  animation-timing-function: linear;
-}
-
-@keyframes rotation {
-  0% {
-    rotate: 0deg;
-  }
-  100% {
-    rotate: 360deg;
-  }
+  margin-left: 16px;
 }
 
 .progress-label {
@@ -56,14 +43,15 @@ main {
 }
 
 .progress-bar {
-  height: 20px;
+  height: 30px;
   background-color: rgba(72, 163, 0, 0.1);
   border-radius: 15px;
+  margin-bottom: 42px;
 }
 
 .progress-value {
-  height: 20px;
-  width: 66%;
+  height: 100%;
+  width: 0;
   background-color: #48a300;
   border-radius: 15px;
   font-weight: 500;
@@ -71,17 +59,22 @@ main {
   color: #eeffe0;
   display: flex;
   align-items: center;
+  overflow: hidden;
+}
+
+.progress-value span {
   padding-left: 20px;
 }
 
 .error-label {
+  font-size: 12px;
   color: #ff5151;
-  font-size: 14px;
-  margin-block: 20px;
+  margin-top: 4px;
+  display: none;
 }
 
-.error-label-visibility {
-  visibility: hidden;
+.show-error .error-label {
+  display: block;
 }
 
 .goal-container {
@@ -96,27 +89,30 @@ main {
 }
 
 .custom-checkbox {
-  height: 24px;
   width: 24px;
+  height: 24px;
   border: 2px solid rgba(97, 72, 28, 0.3);
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  vertical-align: middle;
   flex-shrink: 0;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-icon {
+  display: none;
 }
 
 .goal-input {
-  margin-left: 22px;
-  font-family: inherit;
-  font-size: 16px;
   border: none;
   outline: none;
-  flex-grow: 1;
+  padding-left: 22px;
+  font-family: inherit;
+  font-size: 16px;
   align-self: stretch;
-  justify-self: stretch;
+  width: 100%;
+  font-weight: 500;
 }
 
 .goal-input::placeholder {
@@ -129,82 +125,25 @@ main {
 }
 
 .made-with {
-  font-size: 10px;
   font-weight: 500;
+  font-size: 10px;
   text-align: center;
-  color: #5a5a5a;
+  color: #858585;
   margin-top: 64px;
-  font-size: 0.8rem;
 }
 
 .completed .custom-checkbox {
-  background-color: #48a300;
+  background: #48a300;
   border-color: #48a300;
-}
-
-.check-icon {
-  display: none;
 }
 
 .completed .check-icon {
   display: block;
 }
 
-.strike {
+.completed .goal-input {
   color: #48a300;
-  text-decoration: line-through;
-}
-
-.progress-value-0 {
-  width: 100%;
-  color: #5a5a5a;
-  background-color: #fff;
-  border: 1px solid #c9c6c6;
-}
-
-.progress-value-1 {
-  width: 33%;
-  background-color: #48a300;
-  color: #fff;
-}
-
-.progress-value-2 {
-  width: 66%;
-  background-color: #48a300;
-  color: #fff;
-}
-
-.progress-value-3 {
-  width: 100%;
-  color: #fff;
-  background-color: #48a300;
-}
-
-#subtitleContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.resetBtn {
-  height: 30px;
-  padding: 3px 10px;
-  color: #fff;
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  word-spacing: 2px;
-  letter-spacing: 1px;
-  background-color: #ff1616;
-  border-radius: 12px;
-  border: none;
-}
-
-.visibility {
-  visibility: hidden;
-}
-
-.resetBtn:hover {
-  cursor: pointer;
+  text-decoration-line: line-through;
 }
 
 @media (max-width: 768px) {
@@ -219,31 +158,19 @@ main {
   .goal-container {
     height: 64px;
     margin-bottom: 24px;
-    border-radius: 14px;
+    border-radius: 12px;
   }
 
   .custom-checkbox {
-    height: 1rem;
-    width: 1rem;
+    width: 20px;
+    height: 20px;
   }
 
   .made-with {
-    margin: 15px;
-  }
-}
-
-@media (max-width: 421px) {
-  .app-container {
-    padding: 16px 16px;
-  }
-}
-
-@media (max-width: 370px) {
-  .goal-input {
-    width: 20px;
+    margin-top: 32px;
   }
 
-  .progress-label {
-    text-align: center;
+  .progress-bar {
+    height: 24px;
   }
 }
