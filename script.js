@@ -53,4 +53,35 @@ resetBtn.addEventListener("click", (e) => {
       container.classList.remove("strike");
     });
   });
+  progressValue.classList.add("progress-value-0");
+  progressValue.classList.remove("progress-value-1");
+  progressValue.classList.remove("progress-value-2");
+  progressValue.classList.remove("progress-value-3");
+  resetBtn.classList.add("visibility");
+
+  // ----- Resetting the Data of localStorage ----- //
+  localStorage.clear();
 });
+
+// ----- Getting Input Fields ----- //
+
+let allInputFields = document.querySelectorAll("input");
+allInputFields.forEach((input, i) => {
+  input.addEventListener("input", (e) => {
+    localStorage.setItem(`Goal-${i}`, e.target.value);
+  });
+});
+
+window.onload = function () {
+  // ----- Getting Inputs Values ---- //
+  const goal_1 = localStorage.getItem("Goal-0");
+  inputField_1.value = goal_1;
+
+  const goal_2 = localStorage.getItem("Goal-1");
+  inputField_2.value = goal_2;
+
+  const goal_3 = localStorage.getItem("Goal-2");
+  inputField_3.value = goal_3;
+};
+
+//  Add the clear goal button.
